@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+* (Breaking) Add a `tls-sni` feature for `MBEDTLS_SSL_SERVER_NAME_INDICATION`, which `tls-core` no longer enables. The `tls` bundle (and so the default features) include it, so only builds that select `tls-core` on its own need to add `tls-sni` to keep sending the server name
+
 ## [0.3.1] - 2026-09-15
 * (Breaking) Raise the `esp-idf-sys` dep to 0.38. Yank 0.3.0, as the release order should've been different
 

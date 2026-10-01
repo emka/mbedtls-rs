@@ -175,7 +175,7 @@ tls = [
     # encoding / x509
     "base64", "pem-parse", "pem-write", "pkcs7", "x509-parse", "x509-write",
     # tls
-    "tls-core", "tls-client", "tls-server", "tls-cache", "tls-ticket",
+    "tls-core", "tls-sni", "tls-client", "tls-server", "tls-cache", "tls-ticket",
     "tls-debug", "tls-proto-tls12", "tls-proto-tls13", "tls-proto-dtls",
     # key exchanges
     "kex-psk", "kex-ecdhe-ecdsa", "kex-ecdhe-rsa", "kex-ecdh-ecdsa",
@@ -254,7 +254,8 @@ x509-parse = []        # X.509 cert/CRL/CSR parsing + verification
 x509-write = []        # X.509 cert/CSR generation
 # TLS
 tls-engine = []        # bare SSL/TLS+DTLS engine, no X.509-coupled extensions
-tls-core = ["tls-engine"] # engine + cert-coupled extensions (SNI, tickets, ...)
+tls-core = ["tls-engine"] # engine + cert-coupled extensions (tickets, renegotiation, ...)
+tls-sni = []           # Server Name Indication: send the host name to the server
 tls-client = []
 tls-server = []
 tls-cache = []

@@ -342,7 +342,7 @@ pub const FEATURE_DEFINES: &[(&str, &[&str])] = &[
         ],
     ),
     // Full TLS feature set: the engine plus extensions that require X.509
-    // certificate handling (SNI, renegotiation, session tickets, etc.). The
+    // certificate handling (renegotiation, session tickets, etc.). The
     // `tls-core` cargo feature pulls `tls-engine`, so its defines union in.
     (
         "TLS_CORE",
@@ -351,11 +351,16 @@ pub const FEATURE_DEFINES: &[(&str, &[&str])] = &[
             "SSL_EXTENDED_MASTER_SECRET",
             "SSL_KEEP_PEER_CERTIFICATE",
             "SSL_RENEGOTIATION",
-            "SSL_SERVER_NAME_INDICATION",
             "SSL_SESSION_TICKETS",
             "SSL_CONTEXT_SERIALIZATION",
         ],
     ),
+    // Server Name Indication. Kept apart from `tls-core` because the extension
+    // is also what sends the host name to the server: a server that picks its
+    // certificate by that name cannot be reached with one this build can use.
+    // Without it `mbedtls_ssl_set_hostname` still sets the name the peer
+    // certificate is verified against.
+    ("TLS_SNI", &["SSL_SERVER_NAME_INDICATION"]),
     ("TLS_CLIENT", &["SSL_CLI_C"]),
     ("TLS_SERVER", &["SSL_SRV_C"]),
     ("TLS_CACHE", &["SSL_CACHE_C"]),
@@ -475,6 +480,7 @@ pub const PREBUILT_FEATURES: &[&str] = &[
     // tls
     "TLS_ENGINE",
     "TLS_CORE",
+    "TLS_SNI",
     "TLS_CLIENT",
     "TLS_SERVER",
     "TLS_CACHE",
